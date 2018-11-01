@@ -30,7 +30,16 @@
 		<?php echo cmb_dinamis('aset_barang', 'tbl_asset', 'asset', 'id_asset',$aset_barang) ?>
 		</td></tr>
 
-
+<tr>
+<td width='200'>Kondisi Barang</td>
+<td>
+<select class="form-control" id="kondisi" name="kondisi" value="<?php echo $kondisi; ?>">
+    <option selected='selected' value="<?php echo $kondisi; ?>"><?php echo $kondisi; ?></option>
+    <option value="NOT OK">NOT OK</option>
+    <option value="OK">OK</option>
+</select>
+</td>
+</tr>
 
 	    <input type="hidden" class="form-control" name="tag_form_pinjam" id="tag_form_pinjam" placeholder="Tag Form Pinjam" value="<?php echo $tag_form_pinjam; ?>" />
 	    <tr><td></td><td><input type="hidden" name="id_barang" value="<?php echo $id_barang; ?>" /> 
