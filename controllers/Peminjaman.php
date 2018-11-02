@@ -304,7 +304,7 @@ class Peminjaman extends CI_Controller
         $this->db->select('*');
         $this->db->where('id_karyawan', $id_kar);
         $this->db->from('tbl_karyawan');
-        $this->db->join('tbl_department', 'tbl_department.id_department = tbl_karyawan.id_karyawan');
+        $this->db->join('tbl_department', 'tbl_department.id_department = tbl_karyawan.department');
         $query2 = $this->db->get()->row_array();
 
         
