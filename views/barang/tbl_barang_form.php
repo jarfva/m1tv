@@ -48,15 +48,3 @@
 	</table></form>        </div>
 </div>
 </div>
-
-
-<!-- <tr>
-<td width='200'>Kondisi Barang</td>
-<td>
-<input type="hidden" class="form-control" name="kondisi" id="kondisi"/>
-<select class="form-control" id="kondisi" name="kondisi" value="<?php echo $kondisi; ?>">
-    <option>OK</option>
-    <option>NOT OK</option>
-</select>
-</td>
-</tr> -->

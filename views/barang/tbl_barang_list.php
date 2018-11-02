@@ -25,8 +25,7 @@
 		    <th>Barcode Barang Detail</th>
 		    <th>Serial Number</th>
 		    <th>Lokasi Barang</th>
-            <th>Tag Form Pinjam</th>
-            <th>Kondisi</th>
+            	<th>Tag Form Pinjam</th>
 		    <th width="100px">Action</th>
                 </tr>
             </thead>
@@ -77,7 +76,7 @@
                         {
                             "data": "id_barang",
                             "orderable": false
-                        },{"data": "jenis_barang_kode"},{"data": "merk_barang_kode"},{"data": "type_barang"},{"data": "barcode_barang_detail"},{"data": "serial_number"},{"data": "lokasi_barang_simpan"},{"data": "tag_form_pinjam"},{"data": "kondisi"},
+                        },{"data": "jenis_barang_kode"},{"data": "merk_barang_kode"},{"data": "type_barang"},{"data": "barcode_barang_detail"},{"data": "serial_number"},{"data": "lokasi_barang_simpan"},{"data": "tag_form_pinjam"},
                         {
                             "data" : "action",
                             "orderable": false,
