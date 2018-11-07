@@ -304,7 +304,7 @@ class Peminjaman extends CI_Controller
         $this->db->select('*');
         $this->db->where('id_karyawan', $id_kar);
         $this->db->from('tbl_karyawan');
-        $this->db->join('tbl_department', 'tbl_department.id_department = tbl_karyawan.id_karyawan');
+        $this->db->join('tbl_department', 'tbl_department.id_department = tbl_karyawan.department');
         $query2 = $this->db->get()->row_array();
 
         
@@ -395,7 +395,6 @@ group by type_barang, jenis_barang, kode_jenis_barang";
 
 
 
-        // $pdf->SetFont('Arial', 'B', 7);
         // $pdf->cell(75,5,'Total :',1,0,'T');
         // $pdf->cell(75,5,$d->jumlah,1,1,'T');
 
@@ -414,6 +413,7 @@ group by type_barang, jenis_barang, kode_jenis_barang";
         //keterangan
         // $pdf->cell(190,7,'KETERANGAN',0,1);
         $pdf->cell(190,50,'keterangan :',1,1,'T');
+        $pdf->SetFont('Arial', 'B', 7);
 
         $pdf->cell(95,7,'KELUAR BARANG',1,0,'C');
         $pdf->cell(95,7,'KEMBALI BARANG',1,1,'C');
@@ -459,158 +459,6 @@ group by type_barang, jenis_barang, kode_jenis_barang";
         
         $pdf->Output('D',$noPinjam.'.pdf');
     }
-
-    // public function pdf(){
-    //     $uriString = $this->uri->uri_string();
-    //     $noPinjam = substr($uriString, 15);
-    //     $query ="SELECT * FROM `tbl_peminjaman` JOIN tbl_karyawan ON tbl_karyawan.id_karyawan = tbl_peminjaman.user_peminjaman where no_form_peminjaman='$noPinjam'";
-    //     $query_no = $this->db->query($query);
-    //     $data = $query_no->row_array();
-    //     $tgl = substr($data['tgl_peminjaman'],0,10);
-    //     $jam = substr($data['tgl_peminjaman'],10);
-    //     $id_kar = $data['user_peminjaman'];
-    //     $this->db->select('*');
-    //     $this->db->where('id_karyawan', $id_kar);
-    //     $this->db->from('tbl_karyawan');
-    //     $this->db->join('tbl_department', 'tbl_department.id_department = tbl_karyawan.id_karyawan');
-    //     $query2 = $this->db->get()->row_array();
-
-        
-    //     $query3 = "SELECT * FROM `tbl_barang` JOIN tbl_merk_barang ON tbl_merk_barang.id_merk_barang = tbl_barang.merk_barang where tag_form_pinjam='$noPinjam'";
-    //     $data2 = $this->db->query($query3)->result();
-    //     $total = $this->db->query($query3)->num_rows();
-    //     $petugas = $this->session->userdata('full_name');
-
-    //     $this->load->library('pdf');
-    //     $pdf = new FPDF('P','mm','A4');
-    //     // membuat halaman baru
-    //     $pdf->AddPage('P');
-    //     // setting jenis font yang akan digunakan
-    //     $image = base_url()."assets/img/KopSurat.PNG";
-    //     $pdf->Image($image,10,10,190);
-    //     $pdf->line(9,55,251-50,55);
-    //     $pdf->line(14,56,217-20,56);
-    //     $pdf->SetFont('Arial', 'B', 8);
-    //     $pdf->cell(46,46,'',0,1);
-    //     //tanggal
-    //     $pdf->cell(37,5,'Tanggal',1,0,'1');
-    //     $pdf->cell(58,5,$tgl,1,0,'10');
-    //     //no
-    //     $pdf->cell(25,5,'no',1,0,'10');
-    //     $pdf->cell(70,5,$noPinjam,1,1,'10');
-    //     //permohonan
-    //     $pdf->cell(37,5,'Pemohon',1,0,'1');
-    //     $pdf->cell(58,5,$data['nama_lengkap'],1,0,'10');
-    //     //no
-    //     $pdf->cell(25,5,'Persiapan',1,0,'10');
-    //     $pdf->cell(70,5,'',1,1,'10');
-    //     //tanggal
-    //     $pdf->cell(37,5,'Departemen Pemohon ',1,0,'1');
-    //     $pdf->cell(58,5,$query2['department_karyawan'],1,0,'10');
-    //     //no
-    //     $pdf->cell(25,5,'Penggunaan',1,0,'10');
-    //     $pdf->cell(70,5,$data['nama_program'],1,1,'10');
-    //     //tanggal
-    //     $pdf->cell(37,5,'Departemen Terkait',1,0,'1');
-    //     $pdf->cell(58,5,'BROADCAST',1,0,'10');
-    //     //no
-    //     $pdf->cell(25,5,'Lokasi',1,0,'10');
-    //     $pdf->cell(70,5,'',1,1,'10');
-    //     //tanggal
-    //     $pdf->cell(37,5,'',1,0,'1');
-    //     $pdf->cell(58,5,'',1,0,'10');
-    //     //no
-    //     $pdf->cell(25,5,'',1,0,'10');
-    //     $pdf->cell(70,5,'',1,1,'10');
-    //     //spasi
-    //     $pdf->cell(1,1,'',0,1);
-    //     // label kolom
-    //     $pdf->cell(10,5,'No.',1,0,'C');
-    //     $pdf->cell(76,5,'Nama Barang',1,0,'C');
-    //     $pdf->cell(75,5,'Keterangan',1,0,'C');
-    //     $pdf->cell(15,5,'Quantity',1,0,'C');
-    //     $pdf->cell(14,5,'Satuan',1,1,'C');
-    //     // isi data
-    //     $i = 1;
-    //     foreach ($data2 as $d ){
-        
-    //     $pdf->cell(10,5,$i,0,0,'C');
-    //     $pdf->cell(76,5,$d->merk_barang_kode.'  '.$d->type_barang,0,0,'L');
-    //     $pdf->cell(75,5,'',0,0,'C');
-    //     $pdf->cell(15,5,1,0,0,'C');
-    //     $pdf->cell(14,5,1,0,1,'C');
-    //     $i++;
-    //     }
-
-    //     $jumlah = 16-$total;
-    //     for($i=0;$i<=$jumlah-1;$i++){
-    //         $pdf->cell(10,5,'',0,0,'C');
-    //         $pdf->cell(76,5,'',0,0,'L');
-    //         $pdf->cell(75,5,'',0,0,'C');
-    //         $pdf->cell(15,5,'',0,0,'C');
-    //         $pdf->cell(14,5,'',0,1,'C');
-    //     }
-    //     // 0 = 80
-    //     // 1 = 76
-    //     // 2 = 72
-    //     // $pengurangan = $total*4;
-    //     // $cell = 78 - $pengurangan;
-
-
-    //     // $pdf->cell(10,$cell,'',1,0,'C');
-    //     // $pdf->cell(76,$cell,'',1,0,'C');
-    //     // $pdf->cell(75,$cell,'',1,0,'C');
-    //     // $pdf->cell(15,$cell,'',1,0,'C');
-    //     // $pdf->cell(14,$cell,'',1,1,'C');
-    //     //keterangan
-    //     // $pdf->cell(190,7,'KETERANGAN',0,1);
-    //     $pdf->cell(190,50,'keterangan :',1,1,'T');
-    //     $pdf->SetFont('Arial', 'B', 7);
-
-    //     $pdf->cell(95,7,'KELUAR BARANG',1,0,'C');
-    //     $pdf->cell(95,7,'KEMBALI BARANG',1,1,'C');
-
-    //     $pdf->cell(47,6,'TGL :'.' '.$tgl,1,0,'L');
-    //     $pdf->cell(48,6,'JAM :'.' '.$jam,1,0,'L');
-    //     $pdf->cell(47,6,'TGL :',1,0,'L');
-    //     $pdf->cell(48,6,'JAM :',1,1,'L');
-
-    //     $pdf->cell(47,6,'Dimohon',1,0,'C');
-    //     $pdf->cell(48,6,'Diperiksa',1,0,'C');
-    //     $pdf->cell(47,6,'Dimohon',1,0,'C');
-    //     $pdf->cell(48,6,'Diperiksa',1,1,'C');
-
-    //     $pdf->cell(47,6,$data['nama_lengkap'],1,0,'C');
-    //     $pdf->cell(48,6,$petugas,1,0,'C');
-    //     $pdf->cell(47,6,$data['nama_lengkap'],1,0,'C');
-    //     $pdf->cell(48,6,$petugas,1,1,'C');
-
-    //     $pdf->cell(47,20,'',1,0,'C');
-    //     $pdf->cell(48,20,'',1,0,'C');
-    //     $pdf->cell(47,20,'',1,0,'C');
-    //     $pdf->cell(48,20,'',1,1,'C');
-
-    //     $pdf->cell(48,7,'',0,1);
-
-    //     $pdf->cell(48,7,'1. Putih Logistik',0,0);
-    //     $pdf->cell(47,7,'2. Kuning Security',0,0);
-    //     $pdf->cell(50,7,'3. Biru Pemohon',0,1);
-    //     //kotak luar
-    //     $pdf->Line(9, 9,210-9,9); // Horizontal line at top
-    //     $pdf->Line(9, 285-9,210-9,285-9); // Horizontal line at bottom
-    //     $pdf->Line(9, 9,9,285-9); // Vetical line at left 
-    //     $pdf->Line(210-9, 9,210-9,285-9); // Vetical line at Right
-    //     //kotak data
-    //     $pdf->Line(10, 87,10,177-10);
-    //     $pdf->Line(20, 87,20,187-20);
-    //     $pdf->Line(96, 87,96,263-96);
-    //     $pdf->Line(171, 87,171,338-171);
-    //     $pdf->Line(186, 87,186,353-186);
-    //     $pdf->Line(200, 87,200,367-200);
-        
-        
-    //     $pdf->Output('D',$noPinjam.'.pdf');
-    // }
 
     public function excel()
     {
