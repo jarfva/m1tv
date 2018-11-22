@@ -32,7 +32,7 @@
             </div>
 			<div id='list_pinjaman'> 
             <table class='table table-bordered'>
-        <tr><th>Barcode Detail</th><th>Nama Barang</th><th>S/N</th><th>Add</th></tr>
+        <tr><th>Barcode Detail</th><th>Nama Barang</th><th>S/N</th><th>Kembali</th></tr>
         <input type="hidden" class="form-control" name="addbarangs" id="addbarangs" value="<?php echo $jumlah?>" />
         <?php foreach ($db as $peminjaman)
             {
