@@ -60,8 +60,8 @@ class Jenis_barang extends CI_Controller
             $this->create();
         } else {
             $data = array(
-		'jenis_barang_kode' => $this->input->post('jenis_barang_kode',TRUE),
-		'kode_jenis_barang' => $this->input->post('kode_jenis_barang',TRUE),
+        		'jenis_barang_kode' => $this->input->post('jenis_barang_kode',TRUE),
+        		'kode_jenis_barang' => $this->input->post('kode_jenis_barang',TRUE),
 	    );
 
             $this->Jenis_barang_model->insert($data);
