@@ -466,41 +466,6 @@ class Peminjaman extends CI_Controller
         $pdf->Output('D',$noPinjam.'.pdf');
     }
 
-    public function edit_keterangan(){
-        $uriString = $this->uri->uri_string();
-        $noPinjam = substr($uriString, 27);
-        //$query = "SELECT * FROM `tbl_barang` JOIN tbl_peminjaman ON tbl_peminjaman.id_form_barang = tbl_barang.id_barang where tag_form_pinjam='$noPinjam'";
-
-        $query = "SELECT *
-            FROM `tbl_barang`
-            JOIN tbl_peminjaman ON tbl_peminjaman.id_form_barang = tbl_barang.id_barang 
-            where tag_form_pinjam='$noPinjam'
-            group by barcode_barang";
-
-        $query2 = "SELECT barcode_barang_detail FROM `tbl_barang` where tag_form_pinjam='$noPinjam'";
-        $hasil = $this->db->query($query)->result();
-        $jumlah = $this->db->query($query)->num_rows();
-        // $barcode = $this->db->query($query2)->row_array();
-        $this->db->select('tbl_karyawan.nik_karyawan, tbl_karyawan.nama_lengkap,tbl_peminjaman.nama_program')
-         ->from('tbl_peminjaman')
-         ->join('tbl_karyawan', 'tbl_peminjaman.user_peminjaman = tbl_karyawan.id_karyawan');
-        $result = $this->db->get()->row_array();
-        $nik = $result['nik_karyawan'];
-        $nama = $result['nama_lengkap'];
-        $program = $result['nama_program'];
-        $data = array (
-            'db' => $hasil,
-            'no_form' => $noPinjam,
-            'nik' => $nik,
-            'nama' => $nama,
-            'program' => $program,
-            'button' => 'save',
-            'jumlah' => $jumlah
-            // 'barcode_detail' => $barcode['barcode_barang_detail']
-        );
-        $this->template->load('template','peminjaman/tbl_peminjaman_edit_keterangan',$data);
-    }
-
     public function excel()
     {
         $this->load->helper('exportexcel');
