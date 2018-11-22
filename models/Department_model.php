@@ -70,6 +70,30 @@ class Department_model extends CI_Model
         $this->db->update($this->table, $data);
     }
 
+    function cek()
+    {
+        alert('A','b','c');
+    
+        // $query = null; //emptying in case 
+
+        // $id   = $_POST['id']; //getting from post value
+        // $name = $_POST['name'];
+
+        // $query = $this->db->get_where('fruits', array(//making selection
+        //     'id' => $id
+        // ));
+
+        // $count = $query->num_rows(); //counting result from query
+
+        // if ($count === 0) {
+        //     $data = array(
+        //         'name' => $name,
+        //         'id' => $id
+        //     );
+        //     $this->db->insert('fruits', $data);
+        // }
+    }
+
     // delete data
     function delete($id)
     {
