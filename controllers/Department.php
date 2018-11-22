@@ -104,7 +104,8 @@ class Department extends CI_Controller
     
     public function delete($id) 
     {
-        $row = $this->Department_model->get_by_id($id);
+        $row = $this->Department_model->cek($id);
+        // $row = $this->Department_model->get_by_id($id);
 
         if ($row) {
             $this->Department_model->delete($id);

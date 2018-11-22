@@ -207,11 +207,17 @@ class Peminjaman extends CI_Controller
         }
     }
 
+    public function saveKeterangan(){
+        print_r('expression');
+        die;
+    }
+
 
     public function add_product_ajax(){
         $barcode = $this->input->get('barcode');
         $noPeminjaman = $this->input->get('noPeminjaman');
-        $barang = $this->db->query("SELECT * FROM `tbl_barang` WHERE `tag_form_pinjam`='AVAILABLE' and `kondisi` = 'OK' and `barcode_barang` LIKE '$barcode%' or uraian_barang LIKE '$%barcode%' LIMIT 5")->result(); 
+        $barang = $this->db->query("SELECT * FROM `tbl_barang` WHERE `tag_form_pinjam`='AVAILABLE' and `kondisi` = 'OK' and (`barcode_barang` LIKE '%$barcode%' or uraian_barang LIKE '%$barcode%' or `barcode_barang_detail` LIKE '%$barcode%')")->result();
+        // $barang = $this->db->query("SELECT * FROM `tbl_barang` WHERE `tag_form_pinjam`='AVAILABLE' and `kondisi` = 'OK' and `barcode_barang` LIKE '$barcode%' or uraian_barang LIKE '$%barcode%'")->result(); 
         echo "
         <table class='table table-bordered'>
         <tr><th>Barcode Detail</th><th>Nama Barang</th><th>S/N</th><th>Add</th></tr>
@@ -311,11 +317,11 @@ class Peminjaman extends CI_Controller
         //$query3 = "SELECT * FROM `tbl_barang` JOIN tbl_merk_barang ON tbl_merk_barang.id_merk_barang = tbl_barang.merk_barang where tag_form_pinjam='$noPinjam' group by type_barang, jenis_barang";
 
         $query3 = "SELECT kode_jenis_barang, merk_barang_kode, type_barang, COUNT(merk_barang_kode) jmlBarang
-FROM `tbl_barang`
-JOIN tbl_merk_barang ON tbl_merk_barang.id_merk_barang = tbl_barang.merk_barang
-JOIN tbl_jenis_barang ON tbl_jenis_barang.id_jenis_barang = tbl_barang.jenis_barang
-where tag_form_pinjam='$noPinjam'
-group by type_barang, jenis_barang, kode_jenis_barang";
+            FROM `tbl_barang`
+            JOIN tbl_merk_barang ON tbl_merk_barang.id_merk_barang = tbl_barang.merk_barang
+            JOIN tbl_jenis_barang ON tbl_jenis_barang.id_jenis_barang = tbl_barang.jenis_barang
+            where tag_form_pinjam='$noPinjam'
+            group by type_barang, jenis_barang, kode_jenis_barang";
 
         $data2 = $this->db->query($query3)->result();
         $total = $this->db->query($query3)->num_rows();
