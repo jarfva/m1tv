@@ -26,6 +26,7 @@ class Peminjaman_model extends CI_Model
         //add this line for join
         //$this->datatables->join('table2', 'tbl_peminjaman.field = table2.field');
         $this->datatables->add_column('action', anchor(site_url('peminjaman/pdf/$1'),'<i class="fa fa-file-pdf-o" aria-hidden="true"></i>', array('class' => 'btn btn-danger btn-sm','target' =>'new'))." 
+            ".anchor(site_url('peminjaman/edit_keterangan/$1'),'<i class="fa fa-pencil-square-o" aria-hidden="true"></i>', array('class' => 'btn btn-danger btn-sm'))."
             ".anchor(site_url('pengembalian/kembali/$1'),'<i class="fa fa-share" aria-hidden="true"></i>', array('class' => 'btn btn-danger btn-sm'))." 
                 ",'no_form_peminjaman');
         return $this->datatables->generate();
